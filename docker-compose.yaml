@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  mysql_db:
+    image: mysql:8.0.26
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    #    restart: always
+    #    network_mode: "host"
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: notthe1
+      MYSQL_USER: training
+      MYSQL_PASSWORD: training_pw
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: users
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+  spring-app:
+    image: spring-app:master
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql_db
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/users?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=training
+      - SPRING_DATASOURCE_PASSWORD=training_pw
