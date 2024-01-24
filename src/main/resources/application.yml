@@ -1,0 +1,20 @@
+logging:
+    pattern:
+        console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+server:
+    port: 8080
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        username: ${MYSQL_USER:training}
+        password: ${MYSQL_PASSWORD:training_pw}
+        url: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+    jpa:
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                generate_statistics: false
+        show-sql: true

@@ -27,7 +27,7 @@ services:
       - mysql_db
     restart: always
     ports:
-      - "9000:9000"
+      - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/users?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=training
